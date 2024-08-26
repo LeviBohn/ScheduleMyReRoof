@@ -1,2 +1,2 @@
 # ScheduleMyReRoof
-See estimated price of roof replacement, and schedule it with a click of a button.
+See estimated price of roof replacement, and schedule it with the click of a button.
