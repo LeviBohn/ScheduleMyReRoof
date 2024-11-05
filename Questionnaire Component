@@ -1,0 +1,55 @@
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+
+const Questionnaire = ({ onComplete }) => {
+  const [address, setAddress] = useState('');
+  const [roofSize, setRoofSize] = useState('');
+  const [roofType, setRoofType] = useState('');
+
+  const handleSubmit = () => {
+    // Here you would typically validate the input
+    onComplete({ address, roofSize, roofType });
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text>Enter your address:</Text>
+      <TextInput
+        style={styles.input}
+        value={address}
+        onChangeText={setAddress}
+        placeholder="123 Main St, Lubbock, TX"
+      />
+      <Text>Estimated roof size (sq ft):</Text>
+      <TextInput
+        style={styles.input}
+        value={roofSize}
+        onChangeText={setRoofSize}
+        keyboardType="numeric"
+        placeholder="1000"
+      />
+      <Text>Current roof type:</Text>
+      <TextInput
+        style={styles.input}
+        value={roofType}
+        onChangeText={setRoofType}
+        placeholder="Asphalt shingles"
+      />
+      <Button title="Submit" onPress={handleSubmit} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    marginBottom: 10,
+  },
+});
+
+export default Questionnaire;

@@ -1,0 +1,17 @@
+export const calculateCost = (roofData) => {
+  const { roofSize, roofType } = roofData;
+  
+  // These are placeholder values. You'd need to replace these with actual costs.
+  const costPerSqFt = {
+    'Asphalt shingles': 3.5,
+    'Metal': 8,
+    'Tile': 10,
+    // Add more roof types as needed
+  };
+
+  const baseCost = roofSize * (costPerSqFt[roofType] || 5); // Default to 5 if type not found
+  const laborCost = roofSize * 2; // Assuming $2 per sq ft for labor
+  const materialsCost = baseCost * 0.4; // Assuming materials are 40% of base cost
+
+  return baseCost + laborCost + materialsCost;
+};

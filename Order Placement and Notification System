@@ -1,0 +1,39 @@
+const express = require('express');
+const router = express.Router();
+
+router.post('/place-order', async (req, res) => {
+  const { roofData, cost } = req.body;
+
+  try {
+    // Place order with supplier
+    await sendOrderToSupplier(roofData, cost);
+
+    // Notify roofing crew
+    await notifyRoofingCrew(roofData);
+
+    // Notify yourself
+    await notifyYourself(roofData, cost);
+
+    res.json({ message: 'Order placed successfully' });
+  } catch (error) {
+    console.error('Error placing order:', error);
+    res.status(500).json({ error: 'Failed to place order' });
+  }
+});
+
+async function sendOrderToSupplier(roofData, cost) {
+  // Implement logic to send order to supplier
+  console.log('Sending order to supplier:', roofData, cost);
+}
+
+async function notifyRoofingCrew(roofData) {
+  // Implement logic to notify roofing crew
+  console.log('Notifying roofing crew:', roofData);
+}
+
+async function notifyYourself(roofData, cost) {
+  // Implement logic to notify yourself
+  console.log('New order received:', roofData, cost);
+}
+
+module.exports = router;

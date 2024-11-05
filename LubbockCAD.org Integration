@@ -1,0 +1,22 @@
+const express = require('express');
+const axios = require('axios');
+const router = express.Router();
+
+router.get('/property-info', async (req, res) => {
+  const { address } = req.query;
+
+  try {
+    // This is a placeholder URL. You'd need to replace this with the actual API endpoint.
+    const response = await axios.get(`https://api.lubbockcad.org/property?address=${encodeURIComponent(address)}`);
+    
+    // Extract relevant information from the response
+    const { propertySize, currentValue } = response.data;
+
+    res.json({ propertySize, currentValue });
+  } catch (error) {
+    console.error('Error fetching property info:', error);
+    res.status(500).json({ error: 'Failed to fetch property information' });
+  }
+});
+
+module.exports = router;

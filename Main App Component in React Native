@@ -1,0 +1,58 @@
+import React, { useState } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import Questionnaire from './components/Questionnaire';
+import Results from './components/Results';
+import OrderConfirmation from './components/OrderConfirmation';
+
+const App = () => {
+  const [currentStep, setCurrentStep] = useState('questionnaire');
+  const [roofData, setRoofData] = useState({});
+  const [cost, setCost] = useState(null);
+
+  const handleQuestionnaireComplete = (data) => {
+    setRoofData(data);
+    // Here you would call a function to calculate the cost
+    // setCost(calculateCost(data));
+    setCurrentStep('results');
+  };
+
+  const handleOrderConfirm = () => {
+    // Here you would implement the order placement logic
+    // sendOrderToSupplier(roofData);
+    // notifyRoofingCrew(roofData);
+    // notifyYourself(roofData);
+    setCurrentStep('orderConfirmed');
+  };
+
+  return (
+    <View style={styles.container}>
+      {currentStep === 'questionnaire' && (
+        <Questionnaire onComplete={handleQuestionnaireComplete} />
+      )}
+      {currentStep === 'results' && (
+        <Results 
+          roofData={roofData} 
+          cost={cost} 
+          onConfirm={() => setCurrentStep('orderConfirmation')} 
+        />
+      )}
+      {currentStep === 'orderConfirmation' && (
+        <OrderConfirmation onConfirm={handleOrderConfirm} />
+      )}
+      {currentStep === 'orderConfirmed' && (
+        <Text>Thank you for your order! We'll be in touch soon.</Text>
+      )}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+});
+
+export default App;
